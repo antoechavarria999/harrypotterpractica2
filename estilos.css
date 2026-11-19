@@ -1,0 +1,94 @@
+/* ===== Estilos base (valores del parcial) ===== */
+*, *::before, *::after { box-sizing: border-box; }
+body { background-color: #0F0F12; margin: 0; }
+.contenedor { max-width: 800px; margin: 0 auto; padding: 40px; background: #0F0F12B3; border: 1px solid #D4AF3733; }
+h1 { font-family: "Playfair Display", serif; font-size: 48px; color: #D4AF37; text-align: center; }
+h2 { font-family: "Playfair Display", serif; font-size: 28px; color: #B8B3A7; }
+p { font-family: "Lato", sans-serif; font-size: 18px; color: #E8E4DC; line-height: 1.7; }
+a { font-family: "Lato", sans-serif; color: #D4AF37; font-weight: bold; text-decoration: none; transition: 0.3s; }
+a:hover { color: #E63946; text-decoration: underline; transition: 0.3s; }
+a:focus-visible, button:focus-visible { outline: 3px solid #D4AF37; outline-offset: 3px; }
+.portada { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #D4AF37; box-shadow: 0 8px 24px #000000CC; }
+.opcion { margin: 0.6em 0; }
+.nivel3 { display: none; border-top: 1px solid #D4AF3733; margin-top: 1.5em; }
+.nivel3:target { display: block; }
+.aviso { text-align: center; color: #B8B3A7; font-style: italic; }
+.video-caja { max-width: 100%; margin: 0 auto; text-align: center; }
+.video-caja iframe { max-width: 100%; border: 1px solid #D4AF37; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #D4AF37; text-align: center; }
+footer p { margin: 0.4em 0; font-size: 16px; }
+
+/* ===== Escena 3D: fondo, niebla, luna y Dementores ===== */
+.cielo { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  perspective: 1200px; perspective-origin: 50% 40%;
+  background: linear-gradient(180deg, #05060A 0%, #10132A 55%, #1B1F3B 100%); }
+.escena3d { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 2s; }
+.cerca .escena3d { transform: translateZ(140px); }          /* salon.html: Dementores más cerca */
+.niebla { position: absolute; left: -25%; width: 150%; height: 40%; bottom: 0; opacity: 0.5; will-change: transform;
+  background: radial-gradient(ellipse at 30% 60%, #8E96C455 0%, #8E96C400 65%); animation: niebla 60s ease-in-out infinite alternate; }
+.niebla.n2 { bottom: 5%; opacity: 0.35; animation-duration: 85s; animation-direction: alternate-reverse;
+  background: radial-gradient(ellipse at 70% 50%, #6F78A844 0%, #6F78A800 65%); }
+@keyframes niebla { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
+
+/* Luna: base con volumen + textura SVG (feTurbulence + feDiffuseLighting) + bordes oscuros + halo */
+.luna { position: absolute; top: 6%; left: 0; width: 200px; height: 200px; border-radius: 50%; will-change: transform;
+  transform-style: preserve-3d; animation: cruzar-luna 120s linear infinite; }
+.luna .esfera { position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  background: radial-gradient(circle at 30% 28%, #FFFFF0 0%, #CFCABB 55%, #8E8A7C 100%);
+  box-shadow: inset -26px -18px 40px #000000AA, inset 8px 8px 20px #FFFFF044; }
+.luna .crateres { position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 32% 38%, #8E8A7C66 0 7%, #8E8A7C00 8%),
+    radial-gradient(circle at 64% 62%, #8E8A7C55 0 11%, #8E8A7C00 12%),
+    radial-gradient(circle at 70% 24%, #8E8A7C44 0 5%, #8E8A7C00 6%); }
+.luna .textura { position: absolute; top: 0; left: 0; width: 200%; height: 100%; mix-blend-mode: multiply; opacity: 0.7;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200'><filter id='f' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.018 0.03' numOctaves='4' seed='7' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='%23FFFFF0' surfaceScale='5'><feDistantLight azimuth='225' elevation='50'/></feDiffuseLighting></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>") repeat-x 0 0 / 400px 100%;
+  animation: rotar-luna 80s linear infinite; }
+.luna::after { content: ""; position: absolute; inset: -50px; border-radius: 50%; box-shadow: 0 0 90px 35px #F4F1DE66; animation: pulso 5s ease-in-out infinite; }
+@keyframes cruzar-luna { 0% { transform: translate3d(-20vw, 24vh, -350px) scale(0.9); } 50% { transform: translate3d(48vw, 0, -80px) scale(1.1); } 100% { transform: translate3d(110vw, 24vh, -350px) scale(0.9); } }
+@keyframes rotar-luna { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pulso { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+/* Dementores: vuelo (profundidad) > cuerpo (giro y flote) > capas (ondulación) */
+.dementor { position: absolute; left: 50%; will-change: transform; transform-style: preserve-3d; }
+.d1 { top: 14%; width: 110px; height: 190px; animation: vuelo 22s linear -4s infinite; }
+.d2 { top: 40%; width: 70px;  height: 120px; animation: vuelo-r 38s linear -15s infinite; }
+.d3 { top: 50%; width: 130px; height: 220px; animation: vuelo 30s linear -22s infinite; }
+.d4 { top: 24%; width: 46px;  height: 80px;  animation: vuelo-r 45s linear -30s infinite; }
+.d5 { top: 62%; width: 84px;  height: 140px; animation: vuelo-r 18s linear -9s infinite; }
+@keyframes vuelo { 0% { transform: translate3d(-70vw, 0, -800px); opacity: 0.15; } 50% { transform: translate3d(0, -3vh, 150px); opacity: 1; } 100% { transform: translate3d(70vw, 0, -800px); opacity: 0.15; } }
+@keyframes vuelo-r { 0% { transform: translate3d(70vw, 0, -800px); opacity: 0.15; } 50% { transform: translate3d(0, 3vh, 150px); opacity: 1; } 100% { transform: translate3d(-70vw, 0, -800px); opacity: 0.15; } }
+.aura { position: absolute; inset: -30%; border-radius: 50%; background: radial-gradient(circle, #9FB4C722 0%, #9FB4C700 70%); transform: translateZ(-20px); }
+.cuerpo { position: absolute; inset: 0; transform-style: preserve-3d; opacity: 0.8; will-change: transform; animation: girar 9s ease-in-out infinite alternate; }
+.cerca .cuerpo { opacity: 1; }
+@keyframes girar { from { transform: rotateY(-20deg) rotateZ(-2deg) translateY(-8px); } to { transform: rotateY(20deg) rotateZ(2deg) translateY(8px); } }
+.capa { position: absolute; inset: 0; will-change: transform; filter: url(#tela);
+  transform: translateZ(var(--z)); animation: ondular var(--t) ease-in-out infinite alternate; }
+.lejos .capa { filter: url(#tela) blur(1px); }
+.c0 { background: #000000; } .c1 { background: #05060A; } .c2 { background: #0B0D1A; }
+.p0 { clip-path: polygon(50% 0, 72% 8%, 82% 28%, 88% 55%, 100% 100%, 88% 90%, 78% 100%, 68% 88%, 58% 100%, 48% 90%, 38% 100%, 28% 88%, 18% 100%, 10% 90%, 0 100%, 12% 55%, 18% 28%, 28% 8%); }
+.p1 { clip-path: polygon(50% 0, 70% 10%, 84% 30%, 92% 60%, 100% 96%, 90% 100%, 80% 86%, 70% 100%, 60% 90%, 50% 100%, 40% 88%, 30% 100%, 20% 90%, 10% 100%, 0 96%, 8% 60%, 16% 30%, 30% 10%); }
+.p2 { clip-path: polygon(50% 0, 74% 6%, 80% 26%, 86% 50%, 96% 92%, 86% 100%, 76% 92%, 64% 100%, 54% 86%, 44% 100%, 34% 90%, 24% 100%, 14% 88%, 4% 100%, 14% 50%, 20% 26%, 26% 6%); }
+@keyframes ondular { from { transform: translateZ(var(--z)) skewX(-4deg); } to { transform: translateZ(var(--z)) skewX(4deg); } }
+.capucha { position: absolute; left: 22%; top: 0; width: 56%; height: 40%; background: #05060A; transform: translateZ(14px);
+  clip-path: polygon(50% 0, 75% 10%, 92% 42%, 100% 100%, 0 100%, 8% 42%, 25% 10%); }
+.capucha::after { content: ""; position: absolute; left: 24%; top: 34%; width: 52%; height: 52%; border-radius: 50%; background: #000000; }
+
+/* ===== Música ===== */
+.btn-musica { position: fixed; right: 16px; bottom: 16px; z-index: 900; font-family: "Lato", sans-serif; font-size: 14px; font-weight: bold;
+  color: #D4AF37; background: #0F0F12E6; border: 1px solid #D4AF37; padding: 8px 14px; cursor: pointer; transition: 0.3s; }
+.btn-musica:hover { color: #E63946; border-color: #E63946; }
+.btn-musica--aviso { background: #D4AF37; color: #0F0F12; }
+.entrada { position: fixed; inset: 0; z-index: 1000; background: #05060A; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 24px; transition: opacity 1s; }
+.entrada.oculta { opacity: 0; pointer-events: none; }
+.entrada .boton { border: 2px solid #D4AF37; padding: 12px 36px; font-size: 20px; }
+.entrada .boton:hover { background: #D4AF3722; }
+
+/* ===== Celulares: 3 Dementores, luna simple, menos capas ===== */
+@media (max-width: 600px) {
+  h1 { font-size: 32px; } h2 { font-size: 24px; } .contenedor { padding: 20px; }
+  .luna { width: 130px; height: 130px; } .luna .textura { display: none; }
+  .d4, .d5 { display: none; } .capa:nth-child(n+4) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .cielo *, .cielo *::after, .entrada { animation: none !important; transition: none !important; } }

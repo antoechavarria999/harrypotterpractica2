@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Cabecera: codificación, adaptación a celulares, título, fuentes, estilos y script -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Sala Común | Harry Potter y el prisionero de Azkaban</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilos.css">
+  <script src="js/musica.js" defer></script>
+</head>
+<body data-pagina="sala-comun">
+  <!-- Filtro SVG compartido: tela desgarrada que ondula (Dementores) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="tela" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="2" result="ruido">
+        <animate attributeName="baseFrequency" dur="14s" values="0.02 0.04;0.03 0.05;0.02 0.04" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="8"/>
+    </filter>
+  </svg>
+  <!-- Cielo 3D: fondo, niebla, luna y Dementores -->
+  <div class="cielo" aria-hidden="true">
+    <div class="niebla"></div><div class="niebla n2"></div>
+    <div class="escena3d">
+    <div class="luna"><div class="esfera"><div class="textura"></div><div class="crateres"></div></div></div>
+    <div class="dementor d1"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d2"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d3"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d4 lejos"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d5 lejos"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Música de fondo (sin controles nativos) y botón de control -->
+  <audio id="musica" src="audio/musica.mp3" loop preload="auto"></audio>
+  <button type="button" id="btn-musica" class="btn-musica" aria-label="Silenciar música">Silenciar música</button>
+
+  <!-- Contenedor principal -->
+  <div class="contenedor" id="contenido">
+    <h1>La Sala Común</h1>
+    <!-- Imagen de portada -->
+    <img class="portada" src="imagenes/harry-potter-prisionero-azkaban.jpg" width="640" height="480"
+         alt="Hermione, Ron y Harry asomados a una ventana de madera con vidrios emplomados, en Harry Potter y el prisionero de Azkaban">
+    <h2>La Dama Gorda</h2>
+    <p>La Dama Gorda los mira desde su retrato, con el ceño fruncido por la hora y por el clima.</p>
+    <p>— Contraseña —exige.</p>
+    <p>— Fortuna Major —dice Hermione, y el retrato se abre con un crujido.</p>
+    <h2>El fuego y las sombras</h2>
+    <p>La sala común es una cueva cálida y rojiza: chimenea encendida, sombras que se mueven en los tapices, lluvia golpeando los ventanales. Pero el calor no alcanza. Un frío tenue se cuela por las rendijas y hace temblar las llamas.</p>
+    <p>Junto a la entrada está Neville Longbottom, abrazando a su sapo Trevor. Está pálido, con la mirada perdida en ninguna parte.</p>
+    <h2>Tres miradas</h2>
+    <p>— Yo digo que juguemos al ajedrez mágico junto al fuego —propone Ron, frotándose las manos—. Con este frío, lo mínimo es una derrota calentita.</p>
+    <p>Harry no responde. Se queda frente a la gran ventana, mirando la tormenta con una inquietud que no sabe nombrar.</p>
+    <p>— Ron, mirá a Neville —dice Hermione, bajito—. Está temblando.</p>
+    <p>— Siempre tiembla —responde Ron, y se arrepiente al instante.</p>
+    <p>Neville levanta la vista, ve que lo miran y esconde la cara detrás de Trevor.</p>
+    <p>— Perdón. No quería molestar. Perdón.</p>
+    <p>— No molestás, Neville —dice Hermione, con una sonrisa que le sale a medias.</p>
+    <p>Neville asiente sin convencerse. Le tiemblan las manos. Trevor intenta escaparse y él lo retiene, como si soltarlo fuera perderlo todo.</p>
+    <p>Ron ya acomoda las fichas. Harry sigue con la mirada fija en los vidrios empañados. Del otro lado, algo se mueve en la niebla.</p>
+    <h2>Lo que la sala calla</h2>
+    <p>Hermione repasa la escena como quien relee una página. Neville no dijo una palabra sobre la tarea de Snape, ni sobre su sapo, ni sobre la lluvia: solo mira el piso. Nadie en Gryffindor está así por una poción mal hecha.</p>
+    <p>— Capaz que le pasó algo en la torre —dice Ron, por una vez sin chiste.</p>
+    <p>— O vio algo —susurra Harry, sin volverse—. Hay noches en que uno ve cosas.</p>
+    <p>En la chimenea, un leño se parte con un chasquido y todos se sobresaltan. Neville da un paso atrás y casi tropieza con una silla. Trevor croa, bajito, una sola vez.</p>
+    <p>— Perdón —dice Neville otra vez, y nadie sabe de qué se disculpa.</p>
+    <p>Del cuadro de la Dama Gorda llega un bostezo largo. En la torre, una campana marca la hora. Es tarde y los pasillos se volvieron peligrosos, aunque nadie lo diga en voz alta.</p>
+    <h2>La decisión</h2>
+    <p>La chimenea crepita. La lluvia no da tregua. Neville espera una palabra, y la ventana espera otra cosa. Hermione siente que cualquier camino que elija va a pesar.</p>
+    <p class="opcion"><a href="final-libre.html">Lo ignoran y se van hacia el sillón, junto a la gran ventana</a></p>
+    <p class="opcion"><a href="final-cerrado.html">Charlan con Neville y le preguntan por su día</a></p>
+    <p class="opcion"><a href="index.html">Volver al nodo anterior</a></p>
+    <!-- Firma -->
+    <footer>
+      <p>Hecho por ECHAVARRÍA ANTONELLA</p>
+      <p><a href="https://www.instagram.com/antoo_echavarria/" target="_blank" rel="noopener noreferrer">Instagram: antoo_echavarria</a></p>
+    </footer>
+  </div>
+</body>
+</html>

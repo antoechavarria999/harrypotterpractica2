@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Cabecera: codificación, adaptación a celulares, título, fuentes, estilos y script -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final: La verdad | Harry Potter y el prisionero de Azkaban</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilos.css">
+  <script src="js/musica.js" defer></script>
+</head>
+<body data-pagina="final-libre">
+  <!-- Filtro SVG compartido: tela desgarrada que ondula (Dementores) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="tela" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="2" result="ruido">
+        <animate attributeName="baseFrequency" dur="14s" values="0.02 0.04;0.03 0.05;0.02 0.04" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="8"/>
+    </filter>
+  </svg>
+  <!-- Cielo 3D: fondo, niebla, luna y Dementores -->
+  <div class="cielo" aria-hidden="true">
+    <div class="niebla"></div><div class="niebla n2"></div>
+    <div class="escena3d">
+    <div class="luna"><div class="esfera"><div class="textura"></div><div class="crateres"></div></div></div>
+    <div class="dementor d1"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d2"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d3"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d4 lejos"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    <div class="dementor d5 lejos"><div class="aura"></div><div class="cuerpo"><div class="capa c0 p0" style="--z:-12px;--t:3.0s"></div><div class="capa c1 p1" style="--z:-7px;--t:3.9s"></div><div class="capa c2 p2" style="--z:-2px;--t:4.8s"></div><div class="capa c0 p0" style="--z:2px;--t:5.7s"></div><div class="capa c1 p1" style="--z:7px;--t:6.6s"></div><div class="capa c2 p2" style="--z:12px;--t:7.5s"></div><div class="capucha"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Música de fondo (sin controles nativos) y botón de control -->
+  <audio id="musica" src="audio/musica.mp3" loop preload="auto"></audio>
+  <button type="button" id="btn-musica" class="btn-musica" aria-label="Silenciar música">Silenciar música</button>
+
+  <!-- Contenedor principal -->
+  <div class="contenedor" id="contenido">
+    <h1>Final: La verdad</h1>
+    <!-- Imagen de portada -->
+    <img class="portada" src="imagenes/harry-potter-prisionero-azkaban.jpg" width="640" height="480"
+         alt="Hermione, Ron y Harry asomados a una ventana de madera con vidrios emplomados, en Harry Potter y el prisionero de Azkaban">
+    <h2>La noche junto a la ventana</h2>
+    <p>Sea cual sea el camino que los trajo hasta acá, la noche termina igual: junto a la gran ventana de la sala común, con el fuego a medio apagar y la lluvia golpeando los vidrios. Del otro lado, la niebla se abre y se cierra. Entre ella, los Dementores rodean el castillo, lentos, como una marea negra que no se atreve a entrar. Vigilan. Dumbledore los dejó afuera para que ningún alumno corra peligro, y ellos montan guardia con una paciencia que hiela.</p>
+    <p>Hermione apoya la mano contra el vidrio y la retira enseguida: está helado, cubierto de escarcha. Ron se acurruca en el sillón con una manta y finge que no mira. Harry, quieto, ve cómo una capucha vacía se gira hacia la torre. Las velas de la sala se apagan de a una. Una respiración larga y áspera atraviesa la noche.</p>
+    <p>No hace falta decir nada. Los tres saben que alguien tiene que estar muy cerca para que esas criaturas monten guardia. Alguien a quien odian.</p>
+    <h2>Para quien lee</h2>
+    <p>Y ahora una palabra para vos, que leés. Para quienes ya lo descubrieron, el nombre pesa más; para quienes no, es el misterio que apenas empieza. Sirius Black, el prisionero que escapó de Azkaban, no es solo el hombre acusado de matar a trece personas. Es el padrino de Harry. Fue amigo de James Potter y, según lo que todos creen, entregó a los Potter a Lord Voldemort.</p>
+    <p>Harry mira la ventana y no dice una palabra. Su furia es callada y profunda, de las que no hacen ruido. Afuera, la luna se esconde detrás de las nubes, y en algún lugar de esa noche un hombre también espera.</p>
+    <h2>Fin</h2>
+    <p class="opcion"><a href="index.html">Volver a empezar</a></p>
+    <!-- Firma -->
+    <footer>
+      <p>Hecho por ECHAVARRÍA ANTONELLA</p>
+      <p><a href="https://www.instagram.com/antoo_echavarria/" target="_blank" rel="noopener noreferrer">Instagram: antoo_echavarria</a></p>
+    </footer>
+  </div>
+</body>
+</html>
